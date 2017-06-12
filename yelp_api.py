@@ -162,7 +162,7 @@ def query_api(term, location):
     response = get_business(bearer_token, business_id)
 
     print(u'Result for business "{0}" found:'.format(business_id))
-    pprint.pprint(response, indent=2)
+    return pprint.pformat(response, indent=2)
 
 
 def main():
