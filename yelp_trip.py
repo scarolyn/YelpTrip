@@ -10,8 +10,10 @@ def yelp_trip():
 
 @app.route('/search', methods=['POST'])
 def search():
-    query = request.form['search']
-    return render_template('base.html', search_response = query)
+    query = request.form['search'].split(",")
+    distance = request.form['search_distance']
+    location = request.form['search_location']
+    return render_template('base.html', search_response = yelp_api.query_api(query[0], location))
 
 if __name__ == '__main__':
     app.run()

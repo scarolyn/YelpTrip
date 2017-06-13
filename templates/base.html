@@ -7,7 +7,9 @@
   <title>YelpTrip</title>
 
   <form action="{{ url_for('search') }}" method="POST">
-    <input type="text" name="search" placeholder="Search..">
+    <input type="text" name="search" placeholder="category 1, category 2, ...">
+    <input type="text" name="search_distance" placeholder="max miles in between...">
+    <input type="text" name="search_location" placeholder="location...">
     <input type="submit" name="submit">
   </form>
 
