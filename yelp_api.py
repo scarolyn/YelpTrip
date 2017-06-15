@@ -109,7 +109,7 @@ def request(host, path, bearer_token, url_params=None):
     return response.json()
 
 
-def search(bearer_token, term, location):
+def search(bearer_token, term, location, radius):
     """Query the Search API by a search term and location.
     Args:
         term (str): The search term passed to the API.
@@ -117,12 +117,19 @@ def search(bearer_token, term, location):
     Returns:
         dict: The JSON response from the request.
     """
-
-    url_params = {
-        'term': term.replace(' ', '+'),
-        'location': location.replace(' ', '+'),
-        'limit': SEARCH_LIMIT
-    }
+    if radius == -1:
+        url_params = {
+            'term': term.replace(' ', '+'),
+            'location': location.replace(' ', '+'),
+            'limit': SEARCH_LIMIT
+        }
+    else:
+        url_params = {
+            'term': term.replace(' ', '+'),
+            'location': location.replace(' ', '+'),
+            'limit': SEARCH_LIMIT,
+            'radius' : radius
+        }
     return request(API_HOST, SEARCH_PATH, bearer_token, url_params=url_params)
 
 
@@ -138,7 +145,7 @@ def get_business(bearer_token, business_id):
     return request(API_HOST, business_path, bearer_token)
 
 
-def query_api(term, location):
+def query_api(term, location, radius):
     """Queries the API by the input values from the user.
     Args:
         term (str): The search term to query.
@@ -146,7 +153,7 @@ def query_api(term, location):
     """
     bearer_token = obtain_bearer_token(API_HOST, TOKEN_PATH)
 
-    response = search(bearer_token, term, location)
+    response = search(bearer_token, term, location, radius)
 
     businesses = response.get('businesses')
 
@@ -154,15 +161,8 @@ def query_api(term, location):
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
 
-    business_id = businesses[0]['id']
+    return pprint.pformat(businesses, indent=2)
 
-    print(u'{0} businesses found, querying business info ' \
-        'for the top result "{1}" ...'.format(
-            len(businesses), business_id))
-    response = get_business(bearer_token, business_id)
-
-    print(u'Result for business "{0}" found:'.format(business_id))
-    return pprint.pformat(response, indent=2)
 
 
 def main():
