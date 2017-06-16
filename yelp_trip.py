@@ -10,10 +10,20 @@ def yelp_trip():
 
 @app.route('/search', methods=['POST'])
 def search():
-    query = request.form['search'].split(",")
+    query = request.form['search'].split(',')
     distance = request.form['search_distance']
     location = request.form['search_location']
-    return render_template('base.html', search_response = yelp_api.query_api(query[0], location, -1))
+    clusters = [[i] for i in yelp_api.query_api(query[0], location, -1)]
+    for x in range(1, len(query)):
+        new_cluster = []
+        for cluster in clusters:
+            last_business = cluster[-1]
+            cur_businesses = yelp_api.query_api(query[x], last_business['coordinates'], distance)
+            new_cluster.append([cluster.append(cur_business)] for cur_business in cur_businesses)
+        clusters = new_cluster
+
+    # return render_template('base.html', clusters)
+    return print(clusters)
 
 if __name__ == '__main__':
     app.run()
