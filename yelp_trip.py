@@ -22,7 +22,8 @@ def search():
             coords = last_business['coordinates']
             coordinates_str = ','.join(map(str, (coords['latitude'], coords['longitude'])))
             cur_businesses = yelp_api.query_api(query[x], coordinates_str, distance)
-            new_cluster.extend(cur_businesses)
+            
+            new_cluster.extend(cluster + [business] for business in cur_businesses)
         clusters = new_cluster
     return render_template('base.html', search_response=pprint.pformat(clusters))
 
