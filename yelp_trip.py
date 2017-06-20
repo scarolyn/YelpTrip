@@ -25,7 +25,7 @@ def search():
             
             new_cluster.extend(cluster + [business] for business in cur_businesses)
         clusters = new_cluster
-    return render_template('base.html', search_response=pprint.pformat(clusters))
+    return render_template('search.html', search_response=pprint.pformat(clusters))
 
 if __name__ == '__main__':
     app.run()

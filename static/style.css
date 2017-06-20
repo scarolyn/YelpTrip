@@ -1,0 +1,7 @@
+@font-face {
+	font-family: HVDPosterClean;
+	src: url('HVD_Poster_Clean.ttf');
+}
+.logo{
+	font-family: HVDPosterClean;
+}
