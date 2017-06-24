@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def yelp_trip():
-    return render_template('base.html', api_response=yelp_api.query_api('dinner', 'San Francisco', -1))
+    return render_template('index.html', api_response=yelp_api.query_api('dinner', 'San Francisco', -1))
 
 @app.route('/search', methods=['POST'])
 def search():

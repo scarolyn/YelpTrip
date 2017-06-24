@@ -13,48 +13,6 @@
 </head>
 
 <body>
-<section class="hero is-fullheight">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="logo">YelpTrip</h1>
-      <form class="" action="{{ url_for('search') }}" method="POST">
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field has-addons">
-              <div class="control">
-                <label class="button is-static">Find</label>
-              </div>
-              <div class="control">
-                <input class="input" type="text" name="search" placeholder="category 1, category 2, ..." value="boba, pizza">
-              </div>
-            </div>
-            <div class="field has-addons">
-              <div class="control">
-                <label class="button is-static">Distance</label>
-              </div>
-              <div class="control">
-                <input class="input" type="text" name="search_distance" placeholder="max miles in between..." value="2000">
-              </div>
-            </div>
-            <div class="field has-addons">
-              <div class="control">
-                <label class="button is-static">Location</label>
-              </div>
-              <div class="control">
-                <input class="input" type="text" name="search_location" placeholder="location..." value="San Jose">
-              </div>
-            </div>
-            <div class="field">
-              <div class="control">
-                <input class=" button is-info" type="submit" name="submit">
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <!-- <pre>{{ search_response }}</pre> -->
-</section>
+{% block body %} {% endblock %}
 </body>
 </html>
