@@ -3,6 +3,7 @@ from flask import render_template
 from flask import request
 import yelp_api
 import pprint
+import json
 app = Flask(__name__)
 
 @app.route('/')
@@ -25,7 +26,7 @@ def search():
             
             new_cluster.extend(cluster + [business] for business in cur_businesses)
         clusters = new_cluster
-    return render_template('search.html', search_response=pprint.pformat(clusters))
+    return render_template('search.html', search_response=pprint.pformat(clusters), tabs=query, clusterJSON=json.dumps(clusters))
 
 if __name__ == '__main__':
     app.run()

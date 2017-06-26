@@ -2,7 +2,22 @@
 {% block body %}
 <section class="hero is-fullheight">
   <div class="hero-body">
+    <div class="container">
+      <div class="box page">
+        <div class="tabs is-centered is-toggle">
+          <ul>
+            {% for tab in tabs %}
+            <li {%- if loop.index == 1 %} class="is-active"{% endif %}><a>{{ tab }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      
+    </div>
   </div>
   <!-- <pre>{{ search_response }}</pre> -->
 </section>
+<script id="clusters" type="text/javascript">
+  {{ clusterJSON | safe }}
+</script>
 {% endblock %}
