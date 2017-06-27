@@ -15,18 +15,29 @@ def search():
     query = request.form['search'].split(',')
     distance = request.form['search_distance']
     location = request.form['search_location']
-    clusters = [[i] for i in yelp_api.query_api(query[0], location, -1)]
-    for x in range(1, len(query)):
-        new_cluster = []
-        for cluster in clusters:
-            last_business = cluster[-1]
-            coords = last_business['coordinates']
+    business_lst = yelp_api.query_api(query[0], location, -1)
+    json_businesses = {}
+    json_clusters = {}
+    def build_clusters(cur_businesses, remaining_queries, json_cluster):
+        for business in cur_businesses:
+            json_businesses[business['id']] = business
+            json_cluster[business['id']] = {}
+            if not remaining_queries:
+                continue
+            coords = business['coordinates']
             coordinates_str = ','.join(map(str, (coords['latitude'], coords['longitude'])))
-            cur_businesses = yelp_api.query_api(query[x], coordinates_str, distance)
-            
-            new_cluster.extend(cluster + [business] for business in cur_businesses)
-        clusters = new_cluster
-    return render_template('search.html', search_response=pprint.pformat(clusters), tabs=query, clusterJSON=json.dumps(clusters))
+            next_businesses = yelp_api.query_api(remaining_queries[0], coordinates_str, distance)
+            build_clusters(next_businesses, remaining_queries[1:], json_cluster[business['id']])
+
+    build_clusters(business_lst, query[1:], json_clusters)
+    json_final = {}
+    json_final['businesses'] = json_businesses
+    json_final['clusters'] = json_clusters
+    return render_template('search.html', search_response=pprint.pformat(json_final), tabs=query, clusterJSON=json.dumps(json_final))
+
+def coord_str(json_business):
+    coords = json_business['coordinates']
+    return ','.join(map(str, (coords['latitude'], coords['longitude'])))
 
 if __name__ == '__main__':
     app.run()
