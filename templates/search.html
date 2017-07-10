@@ -7,7 +7,7 @@
         <div class="tabs is-centered is-toggle">
           <ul>
             {% for tab in tabs %}
-            <li {%- if loop.index == 1 %} class="is-active"{% endif %}><a onclick="">{{ tab }}</a></li>
+            <li id="demo-{{ loop.index }}" {%- if loop.index == 1 %} class="is-active"{% endif %}><a onclick="switch_tab('{{ tab }}')">{{ tab }}</a></li>
             {% endfor %}
           </ul>
         </div>
