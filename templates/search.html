@@ -11,11 +11,11 @@
             {% endfor %}
           </ul>
         </div>
+        <pre>{{ search_response }}</pre>
       </div>
       
     </div>
   </div>
-  <pre>{{ search_response }}</pre>
 </section>
 <script id="clusters" type="text/javascript">
   var clusterJSON = {{ clusterJSON | safe }};
