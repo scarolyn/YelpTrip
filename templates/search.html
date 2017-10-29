@@ -7,11 +7,19 @@
         <div class="tabs is-centered is-toggle">
           <ul>
             {% for tab in tabs %}
-            <li id="demo-{{ loop.index }}" {%- if loop.index == 1 %} class="is-active"{% endif %}><a onclick="switch_tab('{{ tab }}')">{{ tab }}</a></li>
+            <li id="demo-{{ loop.index }}"><a>{{ tab }}</a></li>
             {% endfor %}
           </ul>
         </div>
-        <pre>{{ search_response }}</pre>
+        <div class="box choice">
+          <a class="button is-right">Select</a>
+        </div>
+        <div class="box choice">
+          <a class="button is-right">Select</a>
+        </div>
+        <div class="box choice">
+          <a class="button is-right">Select</a>
+        </div>
       </div>
       
     </div>
