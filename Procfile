@@ -1,1 +1,1 @@
-web: python yelp_trip.py
+web: gunicorn yelp_trip:app
