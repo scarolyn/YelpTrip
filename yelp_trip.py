@@ -4,6 +4,7 @@ from flask import request
 import yelp_api
 import pprint
 import json
+import os
 app = Flask(__name__)
 
 @app.route('/')
@@ -49,4 +50,4 @@ def coord_str(json_business):
     return ','.join(map(str, (coords['latitude'], coords['longitude'])))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=int(os.environ.get("PORT", 5000)))
