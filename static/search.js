@@ -1,27 +1,46 @@
 $(document).ready(function() {
     var selectedKeys = [];
-    //follow keys until i get to the correct nested dict
-    var currDict = clusterJSON.clusters;
     var businesses = clusterJSON.businesses;
-    $(selectedKeys).each(function(index, element) {
-        currDict = currDict[element];
-        // console.log("level");
-    });
-    //make a list of keys to keep curr order
-    var lstKeys = [];
-    $.each(currDict, function(key, data) {
-        // console.log(key);
-        lstKeys.push(key);
-        // $.each(data, function (index, data) {
-        //     console.log('index', data)
-        // });
-    });
-    // console.log(Object.keys(lstKeys).length);
-    $(".choice").each(function(index, element) {
-        var currKey = lstKeys[index];
-  		$(element).prepend('<a href=' + businesses[currKey].url + '>' + businesses[currKey].name + '</a>');
-    });
-    //on click: add to selectedKeys
-    //change tabs
-    //repopulate choices
+    document.getElementById("tab-1").classList.add("is-active");
+    function populateChoices() {
+    	var currDict = clusterJSON.clusters;
+	    $.each(selectedKeys, function(index, element) {
+	    	// console.log(element);
+	    	// console.log(currDict);
+	        currDict = currDict[element];
+	    });
+	    var lstKeys = [];
+	    $.each(currDict, function(key, data) {
+	        lstKeys.push(key);
+	        console.log("pushing to list: " + key);
+	    });
+	    // console.log(currDict);
+	    // console.log(Object.keys(lstKeys).length);
+	    $(".choice").each(function(index, element) {
+	        var currKey = lstKeys[index];
+	        console.log("populating button: " + currKey);
+	  		$(element).find(".option-link").attr("href", businesses[currKey].url).text(businesses[currKey].name);
+	    });
+	    $(".select-button").off("click");
+	    $(".select-button").click(function() {
+	    	selectedKeys.push(lstKeys[this.id - 1]);
+	    	if (Object.keys(currDict[lstKeys[this.id - 1]]).length === 0) {
+	    		$(".choices").addClass("is-hidden");
+	    		$(".results-page").removeClass("is-hidden");
+	    		$("#tab-results").addClass("is-active");
+	    		displayResults();
+	    	} else {
+	    		populateChoices();
+	    		$(`#tab-${selectedKeys.length + 1}`).addClass("is-active");
+	    	}
+    		$(`#tab-${selectedKeys.length}`).removeClass("is-active");
+	    });
+    }
+    populateChoices();
+    function displayResults() {
+    	$(".result").each(function (index, element) {
+    		var business = businesses[selectedKeys[index]];
+    		$(element).attr("href", business.url).text(business.name);
+    	});
+    }
 });

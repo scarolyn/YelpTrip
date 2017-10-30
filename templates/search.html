@@ -7,21 +7,29 @@
         <div class="tabs is-centered is-toggle">
           <ul>
             {% for tab in tabs %}
-            <li id="demo-{{ loop.index }}"><a>{{ tab }}</a></li>
+            <li id="tab-{{ loop.index }}"><a>{{ tab }}</a></li>
             {% endfor %}
+            <li id="tab-results"><a>Results</a></li>
           </ul>
         </div>
-        <div class="box choice">
-          <a class="button is-right">Select</a>
+        <div class="choices">
+          {% for n in tabs %}
+          <div class="box choice">
+            <a class="option-link"></a>
+            <a class="button select-button" id="{{ loop.index }}">Select</a>
+          </div>
+          {% endfor %}
         </div>
-        <div class="box choice">
-          <a class="button is-right">Select</a>
-        </div>
-        <div class="box choice">
-          <a class="button is-right">Select</a>
+        <div class="results-page is-hidden">
+          <ol class="result-list">
+            {% for n in tabs %}
+            <li>
+              <a class="result"></a>
+            </li>
+            {% endfor %}
+          </ol>
         </div>
       </div>
-      
     </div>
   </div>
 </section>
