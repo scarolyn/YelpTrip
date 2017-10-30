@@ -15,8 +15,8 @@
         <div class="choices">
           {% for n in range(searchLimit) %}
           <div class="box choice">
-            <a class="option-link"></a>
-            <a class="button select-button" id="{{ loop.index }}">Select</a>
+            <a target="_blank" rel="noopener noreferrer" class="option-link"></a>
+            <a target="_blank" rel="noopener noreferrer" class="button select-button" id="{{ loop.index }}">Select</a>
           </div>
           {% endfor %}
         </div>
@@ -24,7 +24,7 @@
           <ol class="result-list">
             {% for n in tabs %}
             <li>
-              <a class="result"></a>
+              <a target="_blank" rel="noopener noreferrer" class="result"></a>
             </li>
             {% endfor %}
           </ol>
