@@ -13,7 +13,7 @@
           </ul>
         </div>
         <div class="choices">
-          {% for n in tabs %}
+          {% for n in range(searchLimit) %}
           <div class="box choice">
             <a class="option-link"></a>
             <a class="button select-button" id="{{ loop.index }}">Select</a>

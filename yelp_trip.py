@@ -43,7 +43,7 @@ def search():
     # with open("search_response.json", "w") as f:
     #     json.dump(json_final, f)
         
-    return render_template('search.html', search_response=pprint.pformat(json_final), tabs=query, clusterJSON=json.dumps(json_final))
+    return render_template('search.html', search_response=pprint.pformat(json_final), tabs=query, clusterJSON=json.dumps(json_final), searchLimit=yelp_api.SEARCH_LIMIT)
 
 def coord_str(json_business):
     coords = json_business['coordinates']
