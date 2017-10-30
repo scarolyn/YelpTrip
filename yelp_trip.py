@@ -14,12 +14,12 @@ def yelp_trip():
 def search():
     json_final = {}
     query = request.form['search'].split(',')
-    try:
-        with open("search_response.json", "r") as f:
-            json_final = json.load(f)
-            return render_template('search.html', search_response=pprint.pformat(json_final), tabs=query, clusterJSON=json.dumps(json_final))
-    except FileNotFoundError as e:
-        pass
+    # try:
+    #     with open("search_response.json", "r") as f:
+    #         json_final = json.load(f)
+    #         return render_template('search.html', search_response=pprint.pformat(json_final), tabs=query, clusterJSON=json.dumps(json_final))
+    # except FileNotFoundError as e:
+    #     pass
     distance = request.form['search_distance']
     location = request.form['search_location']
     business_lst = yelp_api.query_api(query[0], location, -1)
@@ -39,8 +39,8 @@ def search():
     build_clusters(business_lst, query[1:], json_clusters)
     json_final['businesses'] = json_businesses
     json_final['clusters'] = json_clusters
-    with open("search_response.json", "w") as f:
-        json.dump(json_final, f)
+    # with open("search_response.json", "w") as f:
+    #     json.dump(json_final, f)
         
     return render_template('search.html', search_response=pprint.pformat(json_final), tabs=query, clusterJSON=json.dumps(json_final))
 
